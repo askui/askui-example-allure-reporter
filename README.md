@@ -1,0 +1,1 @@
+# askui-example-allure-reporter
