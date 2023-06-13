@@ -12,10 +12,6 @@ jest.setTimeout(60 * 1000 * 60);
 
 beforeAll(async () => {
   aui = await UiControlClient.build({
-    credentials: {
-      workspaceId: '664e49aa-8f04-49ea-9414-a6fc64b181d3',
-      token: 'KJ3hzbfP7DkNalB3ejNV',
-    },
     reporter: new askuiAllureStepReporter(),
   });
 
