@@ -1,5 +1,3 @@
-# Generate pipeline that runs on push the tests in a nodejs environment and deploys allure report to github pages
-
 name: askui Test
 on:
   push:
