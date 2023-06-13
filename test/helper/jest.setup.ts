@@ -12,6 +12,7 @@ jest.setTimeout(60 * 1000 * 60);
 
 beforeAll(async () => {
   aui = await UiControlClient.build({
+    inferenceServerUrl: process.env['ASKUI_INFERENCE_SERVER_URL'] ?? 'https://inference.askui.com',
     reporter: new askuiAllureStepReporter(),
   });
 

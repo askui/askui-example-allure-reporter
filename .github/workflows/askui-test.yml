@@ -23,6 +23,7 @@ jobs:
         env:
           ASKUI_WORKSPACE_ID: ${{ secrets.ASKUI_WORKSPACE_ID }}
           ASKUI_TOKEN: ${{ secrets.ASKUI_TOKEN }}
+          ASKUI_INFERENCE_SERVER_URL: ${{ secrets.ASKUI_INFERENCE_SERVER_URL }}
       - name: Get Allure history
         uses: actions/checkout@v3
         if: always()
