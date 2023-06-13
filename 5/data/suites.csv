@@ -1,0 +1,39 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"broken","Tue Jun 13 21:39:34 GMT 2023","Tue Jun 13 21:39:37 GMT 2023","2609","home","runner > work > askui-example-allure-reporter > askui-example-allure-reporter > test > my-first-askui-test-suite.test.ts","jest with askui","","","should generate an annotation","
+### Test
+```typescript
+() =>
+  __awaiter(void 0, void 0, void 0, function* () {
+    yield jest_setup_1.aui.annotate();
+  });
+
+```
+"
+"broken","Tue Jun 13 21:39:37 GMT 2023","Tue Jun 13 21:39:42 GMT 2023","5084","home","runner > work > askui-example-allure-reporter > askui-example-allure-reporter > test > my-first-askui-test-suite.test.ts","jest with askui","","","should open the spotlight given it is running on Mac OS","
+### Test
+```typescript
+() =>
+  __awaiter(void 0, void 0, void 0, function* () {
+    yield jest_setup_1.aui.pressTwoKeys(""command"", ""space"").exec();
+    yield jest_setup_1.aui.type(""askui"", { isSecret: true }).exec();
+  });
+
+```
+"
+"skipped","Tue Jun 13 21:39:37 GMT 2023","Tue Jun 13 21:39:42 GMT 2023","5108","home","runner > work > askui-example-allure-reporter > askui-example-allure-reporter > test > my-first-askui-test-suite.test.ts","jest with askui","","","should do a Google search given a browser with Google Search has already been opened and is focused","
+### Test
+```typescript
+() =>
+  __awaiter(void 0, void 0, void 0, function* () {
+    yield jest_setup_1.aui
+      .click()
+      .text()
+      .containsText(""Search Google or type a URL"")
+      .exec();
+    yield jest_setup_1.aui.type(""askui"").exec();
+    yield jest_setup_1.aui.pressKey(""enter"").exec();
+    yield jest_setup_1.aui.getAll().exec();
+  });
+
+```
+"
