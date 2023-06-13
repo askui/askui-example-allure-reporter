@@ -1,7 +1,6 @@
 import { UiControlClient, UiController } from 'askui';
 import 'jest-allure-circus';
 import { askuiAllureStepReporter } from './askui-allure-step-reporter';
-import './video-reporting-utils';
 import { convertBase64StringToBuffer } from './video-reporting-utils';
 import { ContentType } from "allure-js-commons";
 
@@ -25,6 +24,10 @@ beforeAll(async () => {
   });
 
   aui = await UiControlClient.build({
+    credentials: {
+      workspaceId: '664e49aa-8f04-49ea-9414-a6fc64b181d3',
+      token: 'KJ3hzbfP7DkNalB3ejNV',
+    },
     reporter: new askuiAllureStepReporter(),
   });
 
@@ -42,7 +45,7 @@ afterEach(async () => {
 });
 
 afterAll(async () => {
-  aui.close();
+  aui.disconnect();
 });
 
 export { aui };
