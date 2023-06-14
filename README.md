@@ -1,30 +1,37 @@
-# askui-example-allure-reporter
+# 📇 askui-example-allure-reporter
 
-An example of how to use [allure](https://github.com/allure-framework/allure2) with [askui](https://github.com/askui/askui) and `jest` to get reporting with step-level-reporting and video-reporting included.
+An example of how to use [Allure](https://github.com/allure-framework/allure2) with [askui](https://github.com/askui/askui) and `jest` to get reporting with step-level-reporting and video-reporting included.
 
-## Installation
+## 🖥️ Installation
 
 1. Install allure
 
 https://github.com/allure-framework/allure2#download
 
-2. Install test project's dependencies
+2. Install example project's dependencies
 
 ```shell
+# Root folder
 npm install
 ```
 
-## Configuration
+## 📝 Configuration
 
 You need to configure credentials to be able to run the example. See https://docs.askui.com/docs/api/Configuration/askui-ui-control-client#credentials
 
 Also the example assumes that you start the askui UI Controller manually instead of through the `beforeAll` and `afterAll` (teardown) hooks.
 
-## Usage
+Downloads:
+
+* [Windows](https://askui-public.s3.eu-central-1.amazonaws.com/releases/askui-ui-controller/latest/win32/x64/askui-ui-controller.exe)
+* [macOS](https://askui-public.s3.eu-central-1.amazonaws.com/releases/askui-ui-controller/latest/darwin/x64/askui-ui-controller.dmg)
+* [Linux](https://askui-public.s3.eu-central-1.amazonaws.com/releases/askui-ui-controller/latest/linux/x64/askui-ui-controller.AppImage)
+
+## 🦾 Usage
 
 Tests can be run with:
 ```shell
-npx jest --config ./test/jest.config.ts
+npm run test
 ```
 
 ## After running tests you can generate the allure report with:
@@ -32,3 +39,11 @@ npx jest --config ./test/jest.config.ts
 ```shell
 allure serve ./allure-results
 ```
+
+## 🔧 Details
+
+* [Github-Pipelines](https://github.com/askui/askui-example-allure-reporter/tree/main/.github/workflows)
+* [Rendered report](https://askui.github.io/askui-example-allure-reporter/6/)
+* [The reporter implementation](https://github.com/askui/askui-example-allure-reporter/blob/main/test/helper/askui-allure-step-reporter.ts)
+* [Enabling reporter and videorecording](https://github.com/askui/askui-example-allure-reporter/blob/main/test/helper/jest.setup.ts)
+* [testEnvironment configuration for Allure](https://github.com/askui/askui-example-allure-reporter/blob/main/test/jest.config.ts)
