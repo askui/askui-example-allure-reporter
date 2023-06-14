@@ -1,0 +1,12 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"passed","Wed Jun 14 13:06:08 GMT 2023","Wed Jun 14 13:06:19 GMT 2023","11440","home","askui > test_project > __tests__ > test-cases > starter.ts","ROOT_DESCRIBE_BLOCK","","","Starter","
+### Test
+```typescript
+() =>
+  __awaiter(void 0, void 0, void 0, function* () {
+    yield jest_setup_1.aui.typeIn(""www.google.com"").textfield().exec();
+    yield jest_setup_1.aui.pressKey(""enter"").exec();
+  });
+
+```
+"
