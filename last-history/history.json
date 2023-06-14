@@ -1,1 +1,1 @@
-{}
+{"6f7eccb364aa86439e3a503330739858":{"statistic":{"failed":0,"broken":0,"skipped":0,"passed":1,"unknown":0,"total":1},"items":[{"uid":"64adf21a6c06b998","reportUrl":"https://askui.github.io/askui-example-allure-reporter/5//#testresult/64adf21a6c06b998","status":"passed","time":{"start":1686702913424,"stop":1686702925914,"duration":12490}}]}}
