@@ -5,7 +5,7 @@ on:
     - cron: '0 3 * * 6' # every Saturday at 3am
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: [larger-runner, linux]
     steps:
       - name: Create Config
         run: |
