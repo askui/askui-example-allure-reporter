@@ -24,6 +24,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
           image: askuigmbh/askui-runner:github
           options: -v ${{ github.workspace }}/config.yaml:/home/askui/config.yaml -v ${{ github.workspace }}/allure-results:/home/askui/test_project/allure-results
+          run: echo "Running tests"
       - name: Get Allure history
         uses: actions/checkout@v3
         if: always()
