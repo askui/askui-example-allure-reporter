@@ -1,7 +1,8 @@
 name: askui Test with Studio
 on:
-  push:
-    branches: [main]
+  workflow_dispatch:
+  schedule:
+    - cron: '0 3 * * 6' # every Saturday at 3am
 jobs:
   test:
     runs-on: ubuntu-latest
