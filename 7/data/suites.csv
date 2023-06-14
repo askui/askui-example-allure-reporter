@@ -1,0 +1,49 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"skipped","Wed Jun 14 11:51:21 GMT 2023","Wed Jun 14 11:51:28 GMT 2023","7900","home","runner > work > askui-example-allure-reporter > askui-example-allure-reporter > test > my-first-askui-test-suite.test.ts","jest with askui","","","should generate an annotation","
+### Test
+```typescript
+() =>
+  __awaiter(void 0, void 0, void 0, function* () {
+    yield jest_setup_1.aui.annotate();
+  });
+
+```
+"
+"passed","Wed Jun 14 11:51:21 GMT 2023","Wed Jun 14 11:51:28 GMT 2023","7689","home","runner > work > askui-example-allure-reporter > askui-example-allure-reporter > test > my-first-askui-test-suite.test.ts","jest with askui","","","should navigate to app.askui.com","
+### Test
+```typescript
+() =>
+  __awaiter(void 0, void 0, void 0, function* () {
+    yield jest_setup_1.aui.typeIn(""www.app.askui.com"").textfield().exec();
+  });
+
+```
+"
+"skipped","Wed Jun 14 11:51:21 GMT 2023","Wed Jun 14 11:51:28 GMT 2023","7744","home","runner > work > askui-example-allure-reporter > askui-example-allure-reporter > test > my-first-askui-test-suite.test.ts","jest with askui","","","should do a Google search given a browser with Google Search has already been opened and is focused","
+### Test
+```typescript
+() =>
+  __awaiter(void 0, void 0, void 0, function* () {
+    yield jest_setup_1.aui
+      .click()
+      .text()
+      .containsText(""Search Google or type a URL"")
+      .exec();
+    yield jest_setup_1.aui.type(""askui"").exec();
+    yield jest_setup_1.aui.pressKey(""enter"").exec();
+    yield jest_setup_1.aui.getAll().exec();
+  });
+
+```
+"
+"skipped","Wed Jun 14 11:51:21 GMT 2023","Wed Jun 14 11:51:28 GMT 2023","7730","home","runner > work > askui-example-allure-reporter > askui-example-allure-reporter > test > my-first-askui-test-suite.test.ts","jest with askui","","","should open the spotlight given it is running on Mac OS","
+### Test
+```typescript
+() =>
+  __awaiter(void 0, void 0, void 0, function* () {
+    yield jest_setup_1.aui.pressTwoKeys(""command"", ""space"").exec();
+    yield jest_setup_1.aui.type(""askui"", { isSecret: true }).exec();
+  });
+
+```
+"
