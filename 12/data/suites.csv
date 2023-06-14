@@ -1,0 +1,37 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"broken","Wed Jun 14 12:29:44 GMT 2023","Wed Jun 14 12:29:47 GMT 2023","2689","home","askui > test_project > __tests__ > test-cases > delete-expired-access-tokens.ts","ROOT_DESCRIBE_BLOCK","","","Delete Expired Access Tokens","
+### Test
+```typescript
+() =>
+  __awaiter(void 0, void 0, void 0, function* () {
+    yield jest_setup_1.aui.typeIn(""www.app.askui.com"").textfield().exec();
+    yield jest_setup_1.aui.pressKey(""enter"").exec();
+    yield jest_setup_1.aui
+      .typeIn(getTestUserEmail())
+      .textfield()
+      .contains()
+      .text(""Email address"")
+      .exec();
+    yield jest_setup_1.aui
+      .typeIn(getTestUserPassword())
+      .textfield()
+      .contains()
+      .text(""Password"")
+      .exec();
+    yield jest_setup_1.aui.click().button().withText(""Continue"").exec();
+    yield jest_setup_1.aui.click().text(""Access Tokens"").exec();
+  });
+
+```
+"
+"broken","Wed Jun 14 12:29:44 GMT 2023","Wed Jun 14 12:29:47 GMT 2023","3221","home","askui > test_project > __tests__ > test-cases > starter.ts","ROOT_DESCRIBE_BLOCK","","","Starter","
+### Test
+```typescript
+() =>
+  __awaiter(void 0, void 0, void 0, function* () {
+    yield jest_setup_1.aui.typeIn(""www.google.com"").textfield().exec();
+    yield jest_setup_1.aui.pressKey(""enter"").exec();
+  });
+
+```
+"
