@@ -1,48 +1,71 @@
 "Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
-"skipped","Wed Jun 14 11:51:21 GMT 2023","Wed Jun 14 11:51:28 GMT 2023","7900","home","runner > work > askui-example-allure-reporter > askui-example-allure-reporter > test > my-first-askui-test-suite.test.ts","jest with askui","","","should generate an annotation","
+"passed","Wed Jun 14 12:04:03 GMT 2023","Wed Jun 14 12:04:12 GMT 2023","8924","home","askui > test_project > __tests__ > test-cases > starter.ts","ROOT_DESCRIBE_BLOCK","","","Starter","
 ### Test
 ```typescript
 () =>
   __awaiter(void 0, void 0, void 0, function* () {
-    yield jest_setup_1.aui.annotate();
+    yield jest_setup_1.aui.typeIn(""www.google.com"").textfield().exec();
+    yield jest_setup_1.aui.pressKey(""enter"").exec();
   });
 
 ```
 "
-"passed","Wed Jun 14 11:51:21 GMT 2023","Wed Jun 14 11:51:28 GMT 2023","7689","home","runner > work > askui-example-allure-reporter > askui-example-allure-reporter > test > my-first-askui-test-suite.test.ts","jest with askui","","","should navigate to app.askui.com","
+"broken","Wed Jun 14 12:03:36 GMT 2023","Wed Jun 14 12:04:01 GMT 2023","25824","home","askui > test_project > __tests__ > test-cases > delete-jenkins-access-token.ts","ROOT_DESCRIBE_BLOCK","","","Delete Jenkins Access Token","
 ### Test
 ```typescript
 () =>
   __awaiter(void 0, void 0, void 0, function* () {
     yield jest_setup_1.aui.typeIn(""www.app.askui.com"").textfield().exec();
-  });
-
-```
-"
-"skipped","Wed Jun 14 11:51:21 GMT 2023","Wed Jun 14 11:51:28 GMT 2023","7744","home","runner > work > askui-example-allure-reporter > askui-example-allure-reporter > test > my-first-askui-test-suite.test.ts","jest with askui","","","should do a Google search given a browser with Google Search has already been opened and is focused","
-### Test
-```typescript
-() =>
-  __awaiter(void 0, void 0, void 0, function* () {
+    yield jest_setup_1.aui.pressKey(""enter"").exec();
+    yield jest_setup_1.aui
+      .typeIn(""janosch.jenson@yopmail.com"")
+      .textfield()
+      .contains()
+      .text(""Email address"")
+      .exec();
+    yield jest_setup_1.aui
+      .typeIn(""84BvS!ig7#oqj44%LP6D"")
+      .textfield()
+      .contains()
+      .text(""Password"")
+      .exec();
+    yield jest_setup_1.aui.click().button().withText(""Continue"").exec();
+    yield jest_setup_1.aui.click().text(""Access Tokens"").exec();
     yield jest_setup_1.aui
       .click()
-      .text()
-      .containsText(""Search Google or type a URL"")
+      .table()
+      .col(3)
+      .leftOf(0)
+      .text(""Jenkins"")
+      .below(1)
+      .text(""Name"")
       .exec();
-    yield jest_setup_1.aui.type(""askui"").exec();
-    yield jest_setup_1.aui.pressKey(""enter"").exec();
-    yield jest_setup_1.aui.getAll().exec();
+    yield jest_setup_1.aui.click().text(""YES, DELETE"").exec();
   });
 
 ```
 "
-"skipped","Wed Jun 14 11:51:21 GMT 2023","Wed Jun 14 11:51:28 GMT 2023","7730","home","runner > work > askui-example-allure-reporter > askui-example-allure-reporter > test > my-first-askui-test-suite.test.ts","jest with askui","","","should open the spotlight given it is running on Mac OS","
+"broken","Wed Jun 14 12:03:13 GMT 2023","Wed Jun 14 12:03:35 GMT 2023","21142","home","askui > test_project > __tests__ > test-cases > delete-expired-access-tokens.ts","ROOT_DESCRIBE_BLOCK","","","Delete Expired Access Tokens","
 ### Test
 ```typescript
 () =>
   __awaiter(void 0, void 0, void 0, function* () {
-    yield jest_setup_1.aui.pressTwoKeys(""command"", ""space"").exec();
-    yield jest_setup_1.aui.type(""askui"", { isSecret: true }).exec();
+    yield jest_setup_1.aui.typeIn(""www.app.askui.com"").textfield().exec();
+    yield jest_setup_1.aui.pressKey(""enter"").exec();
+    yield jest_setup_1.aui
+      .typeIn(getTestUserEmail())
+      .textfield()
+      .contains()
+      .text(""Email address"")
+      .exec();
+    yield jest_setup_1.aui
+      .typeIn(getTestUserPassword())
+      .textfield()
+      .contains()
+      .text(""Password"")
+      .exec();
+    yield jest_setup_1.aui.click().button().withText(""Continue"").exec();
+    yield jest_setup_1.aui.click().text(""Access Tokens"").exec();
   });
 
 ```
