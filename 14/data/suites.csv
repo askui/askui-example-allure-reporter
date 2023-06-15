@@ -1,0 +1,86 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"broken","Thu Jun 15 11:53:39 GMT 2023","Thu Jun 15 11:54:20 GMT 2023","41500","home","askui > test_project > __tests__ > test-cases > test.ts","ROOT_DESCRIBE_BLOCK","","","Unnamed","
+### Test
+```typescript
+() =>
+  __awaiter(void 0, void 0, void 0, function* () {
+    yield jest_setup_1.aui.typeIn(""www.google.com"").textfield().exec();
+    yield jest_setup_1.aui.pressKey(""enter"").exec();
+    // askui screenshot:5ebd1f3a-a107-44c7-8113-f8cd5356a966.png
+    yield jest_setup_1.aui.click().table().col(x).exec();
+  });
+
+```
+"
+"passed","Thu Jun 15 11:54:22 GMT 2023","Thu Jun 15 11:54:42 GMT 2023","19964","home","askui > test_project > __tests__ > test-cases > starter.ts","ROOT_DESCRIBE_BLOCK","","","Starter","
+### Test
+```typescript
+() =>
+  __awaiter(void 0, void 0, void 0, function* () {
+    yield jest_setup_1.aui.typeIn(""www.google.com"").textfield().exec();
+    yield jest_setup_1.aui.pressKey(""enter"").exec();
+  });
+
+```
+"
+"broken","Thu Jun 15 11:52:54 GMT 2023","Thu Jun 15 11:53:37 GMT 2023","43271","home","askui > test_project > __tests__ > test-cases > delete-jenkins-access-token.ts","ROOT_DESCRIBE_BLOCK","","","Delete Jenkins Access Token","
+### Test
+```typescript
+() =>
+  __awaiter(void 0, void 0, void 0, function* () {
+    yield jest_setup_1.aui.typeIn(""www.app.askui.com"").textfield().exec();
+    yield jest_setup_1.aui.pressKey(""enter"").exec();
+    yield jest_setup_1.aui
+      .typeIn(""janosch.jenson@yopmail.com"")
+      .textfield()
+      .contains()
+      .text(""Email address"")
+      .exec();
+    yield jest_setup_1.aui
+      .typeIn(""76BvS!ig7#oqj44%LP6D"")
+      .textfield()
+      .contains()
+      .text(""Password"")
+      .exec();
+    yield jest_setup_1.aui.click().button().withText(""Continue"").exec();
+    yield jest_setup_1.aui.click().text(""Access Tokens"").exec();
+    yield jest_setup_1.aui
+      .click()
+      .table()
+      .col(3)
+      .leftOf(0)
+      .text(""Jenkins"")
+      .below(1)
+      .text(""Name"")
+      .exec();
+    yield jest_setup_1.aui.click().text(""YES, DELETE"").exec();
+  });
+
+```
+"
+"broken","Thu Jun 15 11:52:14 GMT 2023","Thu Jun 15 11:52:52 GMT 2023","38551","home","askui > test_project > __tests__ > test-cases > delete-expired-access-tokens.ts","ROOT_DESCRIBE_BLOCK","","","Delete Expired Access Tokens","
+### Test
+```typescript
+() =>
+  __awaiter(void 0, void 0, void 0, function* () {
+    yield jest_setup_1.aui.typeIn(""www.app.askui.com"").textfield().exec();
+    yield jest_setup_1.aui.pressKey(""enter"").exec();
+    yield jest_setup_1.aui
+      .typeIn(getTestUserEmail())
+      .textfield()
+      .contains()
+      .text(""Email address"")
+      .exec();
+    yield jest_setup_1.aui
+      .typeIn(getTestUserPassword())
+      .textfield()
+      .contains()
+      .text(""Password"")
+      .exec();
+    yield jest_setup_1.aui.click().button().withText(""Continue"").exec();
+    yield jest_setup_1.aui.click().text(""Access Tokens"").exec();
+    yield deleteExpiredAccessTokens();
+  });
+
+```
+"
