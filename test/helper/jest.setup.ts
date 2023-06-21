@@ -1,8 +1,5 @@
 import { UiControlClient } from "askui";
-import "jest-allure-circus";
-import { askuiAllureStepReporter } from "./askui-allure-step-reporter";
-import { convertBase64StringToBuffer } from "./video-reporting-utils";
-import { ContentType } from "allure-js-commons";
+import {setupMockServer} from './setup-mock-server';
 
 // eslint-disable-next-line import/no-mutable-exports
 let aui: UiControlClient;
@@ -10,29 +7,30 @@ let aui: UiControlClient;
 jest.setTimeout(60 * 1000 * 60);
 
 beforeAll(async () => {
+  await setupMockServer();
+
   aui = await UiControlClient.build({
     inferenceServerUrl:
       process.env["ASKUI_INFERENCE_SERVER_URL"] ??
-      "https://inference-dev.askui.com",
-    reporter: new askuiAllureStepReporter(),
+      "http://localhost:32768",
   });
 
   await aui.connect();
 });
 
-beforeEach(async () => {
-  await aui.startVideoRecording();
-});
+// beforeEach(async () => {
+//   await aui.startVideoRecording();
+// });
 
-afterEach(async () => {
-  await aui.stopVideoRecording();
-  const video = await aui.readVideoRecording();
-  allure.createAttachment(
-    "Video",
-    convertBase64StringToBuffer(video),
-    ContentType.WEBM
-  );
-});
+// afterEach(async () => {
+//   await aui.stopVideoRecording();
+//   const video = await aui.readVideoRecording();
+//   allure.createAttachment(
+//     "Video",
+//     convertBase64StringToBuffer(video),
+//     ContentType.WEBM
+//   );
+// });
 
 afterAll(async () => {
   aui.disconnect();
