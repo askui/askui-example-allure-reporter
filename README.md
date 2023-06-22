@@ -17,15 +17,21 @@ npm install
 
 ## 📝 Configuration
 
-You need to configure credentials to be able to run the example. See https://docs.askui.com/docs/api/Configuration/askui-ui-control-client#credentials
+1. You need to configure credentials to be able to run the example. See https://docs.askui.com/docs/api/Configuration/askui-ui-control-client#credentials
 
-Also the example assumes that you start the askui UI Controller manually instead of through the `beforeAll` and `afterAll` (teardown) hooks.
+2. Also the example assumes that you start the askui UI Controller manually instead of through the `beforeAll` and `afterAll` (teardown) hooks.
 
 Downloads:
 
 * [Windows](https://askui-public.s3.eu-central-1.amazonaws.com/releases/askui-ui-controller/latest/win32/x64/askui-ui-controller.exe)
 * [macOS](https://askui-public.s3.eu-central-1.amazonaws.com/releases/askui-ui-controller/latest/darwin/x64/askui-ui-controller.dmg)
 * [Linux](https://askui-public.s3.eu-central-1.amazonaws.com/releases/askui-ui-controller/latest/linux/x64/askui-ui-controller.AppImage)
+
+3. Set the environment variable `ASKUI_INFERENCE_SERVER_URL` for your terminal session like this:
+
+```
+export ASKUI_INFERENCE_SERVER_URL=https://inference.askui.com
+```
 
 ## 🦾 Usage
 
