@@ -17,7 +17,16 @@ describe('jest with askui', () => {
     await aui.type('askui', {isSecret: true}).exec();
   })
 
-  it('should navigate to app.askui.com', async () => {
-    await aui.typeIn('www.app.askui.com').textfield().exec();
+  it('should click on "Submit" button if it is found, otherwise type something in closest text field', async () => {
+    const submitButtons = await aui.get().button().withText('Submit').exec();
+    if (submitButtons.length > 0) {
+      await aui.click().button().withText('Submit').exec();
+    } else {
+      await aui.typeIn('askui').textfield().exec();
+    }
   })
+
+  it('should click on "search" icon closest to text "Google"' , async () => {
+    await aui.click().icon().withText("search").nearestTo().text().withText("Google").exec();
+  });
 });
