@@ -47,5 +47,10 @@ export class askuiAllureStepReporter implements Reporter {
       status,
       attachments,
     );
+    allure.currentTest.status = status;
+    if (step.error !== undefined) {
+      allure.currentTest.detailsMessage = `${step.error.name}: ${step.error.message}`;
+      allure.currentTest.detailsTrace = step.error.stack;
+    }
   }
 }
