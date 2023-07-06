@@ -1,4 +1,4 @@
-import { Reporter, Step, StepStatus } from "askui";
+import { Reporter, Step, StepStatus, Annotation, DetectedElement } from "askui";
 import { Status } from "jest-allure-circus";
 
 function convertPngDataUrlToBuffer(pngDataUrl: string): Buffer {
@@ -20,27 +20,54 @@ function mapAskuiToAllureStepStatus(status: StepStatus): Status {
   }
 }
 
+function createScreenshotOrHTMLAttachment(
+  screenshot: string,
+  detectedElements: Readonly<Readonly<DetectedElement>>[])
+{
+  if (detectedElements !== undefined) {
+    const annotation = new Annotation(
+      screenshot,
+      detectedElements
+    );
+    const annotated = annotation.toHtml().serialize(); 
+    return {
+      name: "Before Screenshot with Annotation",
+      type: {
+        contentType: "text/html",
+        fileExtension: ".html",
+      },
+      content: annotated,
+    };
+  } else {
+    return {
+      name: "Before Screenshot",
+      type: "image/png",
+      content: convertPngDataUrlToBuffer(screenshot),
+    };
+  }
+}
+
 export class askuiAllureStepReporter implements Reporter {
   config = {
     withScreenshots: 'always' as const,
+    withDetectedElements: 'always' as const,
   };
 
   async onStepEnd(step: Step): Promise<void> {
     const status = mapAskuiToAllureStepStatus(step.status);
     const attachments = [];
+
     if (step.lastRun?.begin?.screenshot !== undefined) {
-      attachments.push({
-        name: "Before Screenshot",
-        type: "image/png",
-        content: convertPngDataUrlToBuffer(step.lastRun?.begin?.screenshot),
-      });
+      attachments.push(createScreenshotOrHTMLAttachment(
+        step.lastRun?.begin?.screenshot,
+        step.lastRun?.begin?.detectedElements
+      ));
     }
     if (step.lastRun?.end?.screenshot !== undefined) {
-      attachments.push({
-        name: "After Screenshot",
-        type: "image/png",
-        content: convertPngDataUrlToBuffer(step.lastRun?.end?.screenshot),
-      });
+      attachments.push(createScreenshotOrHTMLAttachment(
+        step.lastRun?.end?.screenshot,
+        step.lastRun?.end?.detectedElements
+      ));
     }
     allure.logStep(
       step.instruction.valueHumanReadable,
