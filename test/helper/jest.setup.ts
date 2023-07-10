@@ -1,8 +1,6 @@
 import { UiControlClient } from "askui";
 import "jest-allure-circus";
-import { askuiAllureStepReporter } from "./askui-allure-step-reporter";
-import { convertBase64StringToBuffer } from "./video-reporting-utils";
-import { ContentType } from "allure-js-commons";
+import { AskUIAllureStepReporter } from "@askui/askui-reporters";
 
 // eslint-disable-next-line import/no-mutable-exports
 let aui: UiControlClient;
@@ -10,11 +8,15 @@ let aui: UiControlClient;
 jest.setTimeout(60 * 1000 * 60);
 
 beforeAll(async () => {
+
   aui = await UiControlClient.build({
     inferenceServerUrl:
       process.env["ASKUI_INFERENCE_SERVER_URL"] ??
       "https://inference-dev.askui.com",
-    reporter: new askuiAllureStepReporter(),
+    uiControllerUrl:
+      process.env["UI_CONTROLLER_URL"] ??
+      "http://127.0.0.1:6769",
+    reporter: new AskUIAllureStepReporter(),
   });
 
   await aui.connect();
@@ -27,11 +29,7 @@ beforeEach(async () => {
 afterEach(async () => {
   await aui.stopVideoRecording();
   const video = await aui.readVideoRecording();
-  allure.createAttachment(
-    "Video",
-    convertBase64StringToBuffer(video),
-    ContentType.WEBM
-  );
+  AskUIAllureStepReporter.createAllureAttachment(video);
 });
 
 afterAll(async () => {
