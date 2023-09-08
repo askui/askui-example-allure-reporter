@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  myservice:
+    image: tobix/allure-cli
+    command:
+      - serve 
+      - -p
+      - "8080"
+      - /allure-results
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./allure-results:/allure-results

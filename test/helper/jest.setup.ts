@@ -1,39 +1,64 @@
 import { UiControlClient } from "askui";
 import "jest-allure-circus";
 import { AskUIAllureStepReporter } from "@askui/askui-reporters";
-
-// eslint-disable-next-line import/no-mutable-exports
-let aui: UiControlClient;
+import { GenericContainer, StartedTestContainer } from 'testcontainers';
 
 jest.setTimeout(60 * 1000 * 60);
 
-beforeAll(async () => {
+function getDockerImageName(): string {
+  const askuiUiControllerVersion = 'v0.11.2';
+  const browser = 'chrome';
+  const browserVersion = '100.0.4896.60';
+  const osArch = 'amd64';
+  return `askuigmbh/askui-ui-controller:${askuiUiControllerVersion}-${browser}-${browserVersion}-${osArch}`;
+}
 
-  aui = await UiControlClient.build({
+async function startTestContainer(): Promise<StartedTestContainer> {
+  const container = new GenericContainer(getDockerImageName())
+  const startedContainer = await container.withExposedPorts(6769, 5900).start();
+  return startedContainer;
+}
+
+beforeEach(() => {
+
+})
+
+async function start(): Promise<{aui: UiControlClient, uiControllerContainer: StartedTestContainer}> {
+  const uiControllerContainer = await startTestContainer();
+  const aui = await UiControlClient.build({
     inferenceServerUrl:
       process.env["ASKUI_INFERENCE_SERVER_URL"] ??
-      "https://inference-dev.askui.com",
-    uiControllerUrl:
-      process.env["UI_CONTROLLER_URL"] ??
-      "http://127.0.0.1:6769",
-    reporter: new AskUIAllureStepReporter(),
+      "https://inference.askui.com",
+    uiControllerUrl: `http://${uiControllerContainer.getHost()}:${uiControllerContainer.getMappedPort(6769)}`,
+    reporter: new AskUIAllureStepReporter({
+      withScreenshots: 'always',
+    })
   });
-
-  await aui.connect();
-});
-
-beforeEach(async () => {
+  aui.connect()
   await aui.startVideoRecording();
-});
+  return {aui, uiControllerContainer};
+}
 
-afterEach(async () => {
+async function end(params: {aui: UiControlClient, uiControllerContainer: StartedTestContainer}): Promise<void> {
+  const {aui, uiControllerContainer} = params;
   await aui.stopVideoRecording();
   const video = await aui.readVideoRecording();
-  AskUIAllureStepReporter.createAllureAttachment(video);
-});
-
-afterAll(async () => {
+  AskUIAllureStepReporter.attachVideo(video);
   aui.disconnect();
-});
+  uiControllerContainer.stop();
+}
 
-export { aui };
+function askuiIt(name: string, fn: (aui: UiControlClient) => void): void {
+  it(name, async () => {
+    const {aui, uiControllerContainer} = await start();
+    try {
+      fn(aui);
+      end({aui, uiControllerContainer});
+    } catch (e) {
+      end({aui, uiControllerContainer});
+      throw e;
+    }
+  })
+}
+
+export {askuiIt}
