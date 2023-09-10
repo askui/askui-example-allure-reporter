@@ -6,7 +6,7 @@ const config: Config.InitialOptions = {
   sandboxInjectedGlobals: [
     'Math',
   ],
-  testEnvironment: 'jest-allure-circus',
+  testEnvironment: '@askui/jest-allure-circus',
 };
 
 // eslint-disable-next-line import/no-default-export

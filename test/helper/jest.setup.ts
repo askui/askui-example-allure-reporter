@@ -1,5 +1,4 @@
 import { UiControlClient } from "askui";
-import "jest-allure-circus";
 import { AskUIAllureStepReporter } from "@askui/askui-reporters";
 import { GenericContainer, StartedTestContainer } from 'testcontainers';
 
@@ -15,13 +14,10 @@ function getDockerImageName(): string {
 
 async function startTestContainer(): Promise<StartedTestContainer> {
   const container = new GenericContainer(getDockerImageName())
-  const startedContainer = await container.withExposedPorts(6769, 5900).start();
+  const BYTES_PER_GIBIBYTE = 1024 * 1024 * 1024
+  const startedContainer = await container.withExposedPorts(6769).withSharedMemorySize(2 * BYTES_PER_GIBIBYTE).start();
   return startedContainer;
 }
-
-beforeEach(() => {
-
-})
 
 async function start(): Promise<{aui: UiControlClient, uiControllerContainer: StartedTestContainer}> {
   const uiControllerContainer = await startTestContainer();
@@ -32,9 +28,9 @@ async function start(): Promise<{aui: UiControlClient, uiControllerContainer: St
     uiControllerUrl: `http://${uiControllerContainer.getHost()}:${uiControllerContainer.getMappedPort(6769)}`,
     reporter: new AskUIAllureStepReporter({
       withScreenshots: 'always',
-    })
+    }),
   });
-  aui.connect()
+  await aui.connect()
   await aui.startVideoRecording();
   return {aui, uiControllerContainer};
 }
@@ -48,11 +44,11 @@ async function end(params: {aui: UiControlClient, uiControllerContainer: Started
   uiControllerContainer.stop();
 }
 
-function askuiIt(name: string, fn: (aui: UiControlClient) => void): void {
+function askuiIt(name: string, fn: (aui: UiControlClient) => Promise<void>): void {
   it(name, async () => {
     const {aui, uiControllerContainer} = await start();
     try {
-      fn(aui);
+      await fn(aui);
       end({aui, uiControllerContainer});
     } catch (e) {
       end({aui, uiControllerContainer});
@@ -60,5 +56,6 @@ function askuiIt(name: string, fn: (aui: UiControlClient) => void): void {
     }
   })
 }
+
 
 export {askuiIt}
