@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --config ./test/jest.config.ts"
+    "test": "jest --config ./test/jest.config.ts",
+    "start-reporter": "http-server ./allure-report"
   },
   "keywords": [],
   "author": "",
@@ -13,6 +14,7 @@
     "@askui/askui-reporters": "^1.2.2",
     "@types/jest": "^29.5.2",
     "askui": "^0.11.5",
+    "http-server": "^14.1.1",
     "jest": "^29.5.0",
     "jest-allure-circus": "^1.0.21",
     "testcontainers": "^10.2.1",

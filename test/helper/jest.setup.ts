@@ -57,5 +57,21 @@ function askuiIt(name: string, fn: (aui: UiControlClient) => Promise<void>): voi
   })
 }
 
+afterAll(async () => {
+  const container = new GenericContainer("tobix/allure-cli");
+  await container.withCommand(["generate", "/allure-results", "-o", "/allure-report"]).withBindMounts([
+    {
+      source: `${process.cwd()}/allure-results`,
+      target: '/allure-results',
+      mode: 'ro',
+    },
+    {
+      source: `${process.cwd()}/allure-report`,
+      target: '/allure-report',
+      mode: 'rw',
+    },
+  ]).start();
+});
+
 
 export {askuiIt}
