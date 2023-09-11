@@ -16,6 +16,9 @@ async function startTestContainer(): Promise<StartedTestContainer> {
   return startedContainer;
 }
 
+const appUsername = process.env["APP_USERNAME"];
+const appUserpass = process.env["APP_USERPASS"];
+
 beforeEach(async () => {
   uiControllerContainer = await startTestContainer();
   aui = await UiControlClient.build({
@@ -31,6 +34,16 @@ beforeEach(async () => {
 
 beforeEach(async () => {
   await aui.startVideoRecording();
+});
+
+beforeEach(async () => {
+  await aui.type('https://www.w3schools.com/howto/howto_css_login_form.asp').exec();
+  await aui.pressKey("enter").exec();
+  await aui.waitFor(2000).exec(); 
+  await aui.click().button().withText('Login').below().text('Click on the button to open the login form:').exec();
+  await aui.typeIn(appUsername).textfield().below().text('Username').exec();
+  await aui.typeIn(appUserpass).textfield().below().text('Password').exec();
+  await aui.click().button().withText('Login').above().text('Remember me').exec();
 });
 
 afterEach(async () => {
