@@ -7,6 +7,8 @@ jest.setTimeout(60 * 1000 * 60);
 
 let aui: UiControlClient;
 
+let uiControllerContainer: StartedTestContainer;
+
 async function startTestContainer(): Promise<StartedTestContainer> {
   const container = new GenericContainer(process.env["ASKUI_CONTROLLER_DOCKER_IMAGE"])
   const BYTES_PER_GIBIBYTE = 1024 * 1024 * 1024
@@ -15,7 +17,7 @@ async function startTestContainer(): Promise<StartedTestContainer> {
 }
 
 beforeEach(async () => {
-  const uiControllerContainer = await startTestContainer();
+  uiControllerContainer = await startTestContainer();
   aui = await UiControlClient.build({
     inferenceServerUrl:
       process.env["ASKUI_INFERENCE_SERVER_URL"],
@@ -25,6 +27,9 @@ beforeEach(async () => {
     }),
   });
   await aui.connect()
+});
+
+beforeEach(async () => {
   await aui.startVideoRecording();
 });
 
@@ -32,7 +37,11 @@ afterEach(async () => {
   await aui.stopVideoRecording();
   const video = await aui.readVideoRecording();
   AskUIAllureStepReporter.attachVideo(video);
+});
+
+afterEach(async () => {
   aui.disconnect();
+  uiControllerContainer.stop();
 });
 
 afterAll(async () => {
