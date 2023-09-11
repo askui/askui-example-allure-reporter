@@ -1,5 +1,4 @@
 import { UiControlClient } from "askui";
-import "jest-allure-circus";
 import { AskUIAllureStepReporter } from "@askui/askui-reporters";
 
 // eslint-disable-next-line import/no-mutable-exports
@@ -29,7 +28,7 @@ beforeEach(async () => {
 afterEach(async () => {
   await aui.stopVideoRecording();
   const video = await aui.readVideoRecording();
-  AskUIAllureStepReporter.createAllureAttachment(video);
+  AskUIAllureStepReporter.attachVideo(video);
 });
 
 afterAll(async () => {
