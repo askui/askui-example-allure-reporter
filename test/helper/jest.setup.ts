@@ -4,6 +4,8 @@ import { GenericContainer, StartedTestContainer } from 'testcontainers';
 
 jest.setTimeout(60 * 1000 * 60);
 
+let aui: UiControlClient;
+
 function getDockerImageName(): string {
   const askuiUiControllerVersion = 'v0.11.2';
   const browser = 'chrome';
@@ -19,9 +21,9 @@ async function startTestContainer(): Promise<StartedTestContainer> {
   return startedContainer;
 }
 
-async function start(): Promise<{aui: UiControlClient, uiControllerContainer: StartedTestContainer}> {
+beforeEach(async () => {
   const uiControllerContainer = await startTestContainer();
-  const aui = await UiControlClient.build({
+  aui = await UiControlClient.build({
     inferenceServerUrl:
       process.env["ASKUI_INFERENCE_SERVER_URL"] ??
       "https://inference.askui.com",
@@ -32,30 +34,14 @@ async function start(): Promise<{aui: UiControlClient, uiControllerContainer: St
   });
   await aui.connect()
   await aui.startVideoRecording();
-  return {aui, uiControllerContainer};
-}
+});
 
-async function end(params: {aui: UiControlClient, uiControllerContainer: StartedTestContainer}): Promise<void> {
-  const {aui, uiControllerContainer} = params;
+afterEach(async () => {
   await aui.stopVideoRecording();
   const video = await aui.readVideoRecording();
   AskUIAllureStepReporter.attachVideo(video);
   aui.disconnect();
-  uiControllerContainer.stop();
-}
-
-function askuiIt(name: string, fn: (aui: UiControlClient) => Promise<void>): void {
-  it(name, async () => {
-    const {aui, uiControllerContainer} = await start();
-    try {
-      await fn(aui);
-      end({aui, uiControllerContainer});
-    } catch (e) {
-      end({aui, uiControllerContainer});
-      throw e;
-    }
-  })
-}
+});
 
 afterAll(async () => {
   const container = new GenericContainer("tobix/allure-cli");
@@ -74,4 +60,4 @@ afterAll(async () => {
 });
 
 
-export {askuiIt}
+export {aui}
