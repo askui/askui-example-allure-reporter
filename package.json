@@ -10,7 +10,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@askui/askui-reporters": "2.1.2",
+    "@askui/askui-reporters": "2.1.3",
     "@askui/jest-allure-circus": "1.0.23",
     "@types/jest": "^29.5.2",
     "askui": "0.20.8",
